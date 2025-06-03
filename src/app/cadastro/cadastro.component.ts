@@ -6,6 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { Cliente } from './cliente';
+import { ClienteService } from '../cliente.service';
 @Component({
   selector: 'app-cadastro',
   imports: [FlexLayoutModule, 
@@ -19,5 +21,16 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './cadastro.component.scss'
 })
 export class CadastroComponent {
+  cliente: Cliente = Cliente.newCliente(); // Cria um novo cliente com um UUID único
 
+  constructor(private service: ClienteService) {
+    // Você pode inicializar o cliente aqui, se necessário
+  
+  }
+
+  salvar() 
+  {
+    this.service.salvar(this.cliente);
+    
+  }
 }
