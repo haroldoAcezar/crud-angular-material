@@ -1,7 +1,7 @@
 
 <div fxLayout="row" fxLayoutAlign="center">
     <div fxFlex="100%" fxLayout="column">
-        <form class="mt-60" #buscaForm="ngForm">
+        <form class="mt-60" #buscaForm="ngForm" (ngSubmit)="pesquisar()">
             <mat-card appearence="outlined">
                 <mat-card-header>
                     <mat-card-title>Consulta de Pacientes</mat-card-title>
@@ -11,7 +11,9 @@
                         <div fxLayout="column" fxFlex="100%">
                             <mat-form-field class="full-width">
                                 <mat-label>Nome:</mat-label>
-                                <input matInput type="text" name="nome" ngModel placeholder="Digite o nome do paciente" required>
+                                <input matInput type="text" name="nomeBusca" 
+                                [(ngModel)]="nomeBusca" 
+                                placeholder="Digite o nome do paciente" required>
                             </mat-form-field>
                         </div>
                     </div>
@@ -23,5 +25,44 @@
                 </mat-card-actions>
             </mat-card>
         </form>
+    </div>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="center" class="mt-20"> 
+    <div fxLayout="column" fxFlex="1000px">
+        <mat-card appearance="outlined">
+            <mat-card-title>Resultado</mat-card-title>
+            <mat-card-content>
+                <table mat-table [dataSource]="listaClientes">
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef>id</th>
+                        <td mat-cell *matCellDef="let cliente">{{ cliente.id }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="nome">
+                        <th mat-header-cell *matHeaderCellDef>Nome</th>
+                        <td mat-cell *matCellDef="let cliente">{{ cliente.nome }}</td>
+                    </ng-container>
+
+                     <ng-container matColumnDef="cpf">
+                        <th mat-header-cell *matHeaderCellDef>CPF</th>
+                        <td mat-cell *matCellDef="let cliente">{{ cliente.cpf }}</td>
+                    </ng-container>
+
+                     <ng-container matColumnDef="dataNascimento">
+                        <th mat-header-cell *matHeaderCellDef>Data Nascimento</th>
+                        <td mat-cell *matCellDef="let cliente">{{ cliente.dataNascimento }}</td>
+                    </ng-container>
+
+                     <ng-container matColumnDef="email">
+                        <th mat-header-cell *matHeaderCellDef>e-mail</th>
+                        <td mat-cell *matCellDef="let cliente">{{ cliente.email }}</td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="colunasTable"></tr>
+                    <tr mat-row *matRowDef="let row; columns: colunasTable"></tr>        
+                </table>
+            </mat-card-content>
+        </mat-card>
     </div>
 </div>

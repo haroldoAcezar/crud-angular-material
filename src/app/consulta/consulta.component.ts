@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -12,6 +13,7 @@ import { Cliente } from '../cadastro/cliente';
   selector: 'app-consulta',
   imports: [
     MatInputModule,
+    CommonModule,
     MatCardModule,
     MatButtonModule,
     FlexLayoutModule,
@@ -22,16 +24,23 @@ import { Cliente } from '../cadastro/cliente';
   styleUrl: './consulta.component.scss'
 })
 
-export class ConsultaComponent implements OnInit {
-
+export class ConsultaComponent implements OnInit 
+{
+  nomeBusca: string = '';
   listaClientes: Cliente[] = [];
+  colunasTable: string[] = ["id", "nome", "cpf", "dataNascimento", "email"]
 
-  constructor(private service: ClienteService) { 
+  constructor(private service: ClienteService) { }
 
-  }
-
-  ngOnInit() {
+  ngOnInit() 
+  {
    //console.log('ConsultaComponent initialized');
     this.listaClientes = this.service.pesquisarClientes('');
+  }
+
+  pesquisar()
+  {
+    //console.log(this.nomeBusca);
+    this.listaClientes = this.service.pesquisarClientes(this.nomeBusca);
   }
 }
